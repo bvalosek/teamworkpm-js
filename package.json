@@ -1,0 +1,23 @@
+{
+  "name": "punch",
+  "description": "Git integration with TeamworkPM",
+  "version": "0.0.1",
+  "homepage": "https://github.com/bvalosek/punch",
+  "author": {
+    "name": "Brandon Valosek",
+    "email": "bvalosek@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bvalosek/punch.git"
+  },
+  "main": "lib/punch",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "keywords": [],
+  "preferGlobal": true,
+  "bin": {
+      "punch": "main.js"
+  }
+}
