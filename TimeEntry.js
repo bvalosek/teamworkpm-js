@@ -35,11 +35,6 @@ define(function(require) {
         return moment().diff(this.getEndTime(), 'minutes');
     };
 
-    TimeEntry.Collection.prototype.sortDesc = function()
-    {
-        this.extra = '?SORTORDER=DESC';
-    };
-
     TimeEntry.Collection.prototype.endpoint = function()
     {
         if (this.projectId)

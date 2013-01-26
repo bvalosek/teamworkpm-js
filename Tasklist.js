@@ -56,6 +56,30 @@ define(function(require) {
         return this;
     };
 
+    Tasklist.Collection.prototype.stats = function()
+    {
+        var total = 0, upcoming = 0, overdue = 0,
+            mins = 0, logged = 0, remaining = 0;
+
+        this.forEachTask(function(task) {
+            total++;
+            upcoming += task.isOverdue() ? 0 : 1;
+            overdue += task.isOverdue() ? 1 : 0;
+            mins += task.attributes.estimatedMinutes;
+            logged += task.totalLoggedMinutes();
+            remaining += task.minutesRemaining();
+        });
+
+        return {
+            total: total,
+            upcoming: upcoming,
+            overdue: overdue,
+            estimatedMinutes: mins,
+            minutesLogged: logged,
+            minutesRemaining: remaining
+        };
+    };
+
     Tasklist.prototype.parse = function(data)
     {
         this.id = data.id;
@@ -158,6 +182,9 @@ define(function(require) {
     // objects
     Tasklist.Collection.prototype.injectTimeEntries = function(entries)
     {
+        this.timeEntries = entries;
+
+        // attach onto individual tasks
         entries.each(function(entry) {
             var task = this.getTaskById(entry.attributes.taskId);
 
