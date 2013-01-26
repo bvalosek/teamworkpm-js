@@ -23,9 +23,6 @@ define(function(require) {
         return this;
     };
 
-    // assume sort desc
-    TimeEntry.Collection.prototype.extra = '?SORTORDER=DESC';
-
     TimeEntry.Collection.prototype.lastEntryByUser = function(user)
     {
         return this.find(function(log) {

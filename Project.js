@@ -18,7 +18,7 @@ define(function(require) {
         lists.projectId = this.id;
         lists._options = opts;
 
-        return lists.fetch();
+        return lists;
     };
 
     // retrieve all recent time logs
@@ -26,6 +26,7 @@ define(function(require) {
     {
         var entries = this.factory(TimeEntry.Collection);
         entries.projectId = this.id;
+        entries.addOption('sortOrder', 'desc');
 
         return entries.fetch();
     };

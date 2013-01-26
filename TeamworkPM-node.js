@@ -4,7 +4,7 @@ define(function(require) {
     var request        = require('request');
     var Deferred       = require('JQDeferred');
     var _              = require('underscore');
-    
+
     var BaseTeamworkPM = require('./TeamworkPM');
 
     var TeamworkPM = BaseTeamworkPM.extend();
@@ -17,18 +17,18 @@ define(function(require) {
         var parser   = opts.parser;
         var method   = opts.method;
         var payload  = opts.data;
-        var extra    = opts.extra;
         var options  = opts.options;
 
-        var url = this.getBaseUrl();
-        url += endpoint + '.json' + (extra ? extra : '');
+        var url = this.getBaseUrl() + endpoint + '.json';
 
         // addional params
         if (options) {
             url += _(options).reduce(function(acc, val, key) {
                 return acc + key + '=' + val + '&';
-            }, '?');
+            }, '?').slice(0,-1);
         }
+
+        console.log(url);
 
         var d = new Deferred();
 

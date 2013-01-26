@@ -16,7 +16,6 @@ define(function(require) {
         if (method == 'read') {
             return this._tpm.doRequest({
                 endpoint : this.endpoint(),
-                extra    : this.extra || null,
                 options  : this._options,
                 parser   : function(data) {
                     data = this.parse(data);

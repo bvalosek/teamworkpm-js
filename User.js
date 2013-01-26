@@ -7,12 +7,12 @@ define(function(require) {
 
     User.prototype.parse = function(data)
     {
-        var data = data.person;
+        data = data.person;
         this.id = data.id;
 
         return {
             id: data.id,
-            userName: data['user-name'],
+            username: data['user-name'],
             email: data['email-address'],
             lastLogin: moment(data['last-login'])
         };

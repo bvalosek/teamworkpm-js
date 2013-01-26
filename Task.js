@@ -12,18 +12,18 @@ define(function(require) {
         this.id = data.id;
 
         this.attributes = {
-            id                 : data.id,
-            content            : data.content,
-            description        : data.description,
-            responsiblePartyId : data['responsible-party-id'],
-            taskListId         : data['todo-list-id'],
-            progress           : data.progress,
-            priority           : data.priority,
-            dateCreated        : moment(data['created-on']),
-            lastModified       : moment(data['last-changed-on']),
-            complete           : data.completed,
-            estimatedMinutes   : parseInt(data['estimated-minutes'], 10) || 0,
-            dateDue            : data['due-date']
+            id               : data.id,
+            name             : data.content,
+            description      : data.description,
+            userId           : data['responsible-party-id'],
+            taskListId       : data['todo-list-id'],
+            progress         : data.progress,
+            priority         : data.priority,
+            dateCreated      : moment(data['created-on']),
+            lastModified     : moment(data['last-changed-on']),
+            complete         : data.completed,
+            estimatedMinutes : parseInt(data['estimated-minutes'], 10) || 0,
+            dateDue          : data['due-date']
                 ? moment(data['due-date'], 'YYYYMMDD')
                 : null
         };

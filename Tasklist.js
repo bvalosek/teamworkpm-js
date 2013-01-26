@@ -5,6 +5,56 @@ define(function(require) {
 
     var Tasklist = Model.extend();
 
+    Tasklist.Collection.prototype.userId = function(userId)
+    {
+        this.addOption('responsible-party-id', userId);
+        return this;
+    };
+
+    Tasklist.Collection.prototype.showMilestones = function()
+    {
+        this.addOption('showMilestones', 'yes');
+        return this;
+    };
+
+    Tasklist.Collection.prototype.showTasks = function(showTasks)
+    {
+        this.addOption('showTasks', showTasks === undefined ? 'yes' : 'no');
+        return this;
+    };
+
+    Tasklist.Collection.prototype.getOverdueCount = function()
+    {
+        this.addOption('getOverdueCount', 'yes');
+        return this;
+    };
+
+    Tasklist.Collection.prototype.getCompletedCount = function()
+    {
+        this.addOption('getCompletedCount', 'yes');
+        return this;
+    };
+
+    // options are all, active (default), and completed
+    Tasklist.Collection.prototype.status = function(s)
+    {
+        this.addOption('status', s);
+        return this;
+    };
+
+    // all (default), upcoming, late, today, tomorrow
+    Tasklist.Collection.prototype.filter = function(f)
+    {
+        this.addOption('filter', f);
+        return this;
+    };
+
+    Tasklist.Collection.prototype.includeOverdue = function()
+    {
+        this.addOption('includeOverdue', 'yes');
+        return this;
+    };
+
     Tasklist.prototype.parse = function(data)
     {
         this.id = data.id;
@@ -16,6 +66,7 @@ define(function(require) {
             description      : data.description,
             totalCompleted   : parseInt(data['completed-count'], 10),
             totalUncompleted : parseInt(data['uncompleted-count'], 10),
+            totalOverdue     : parseInt(data['overdue-count'], 10),
         };
 
         // tasks included?
@@ -36,6 +87,11 @@ define(function(require) {
         }
 
         return this;
+    };
+
+    Tasklist.prototype.getTasks = function()
+    {
+        return this.attributes.tasks;
     };
 
     // Search over an entire collection of tasks lists for a specific task
@@ -93,6 +149,8 @@ define(function(require) {
             }
 
         }.bind(this));
+
+        return this;
     };
 
     Tasklist.Collection.prototype.endpoint = function()
