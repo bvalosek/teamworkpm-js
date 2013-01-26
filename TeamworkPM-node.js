@@ -9,6 +9,8 @@ define(function(require) {
 
     var TeamworkPM = BaseTeamworkPM.extend();
 
+    TeamworkPM.prototype.Deferred = Deferred;
+
     // hit the TeamworkPM API and return a jquery-style deferred, optionally
     // parse with parser if needed
     TeamworkPM.prototype.doRequest = function(opts)
@@ -27,8 +29,6 @@ define(function(require) {
                 return acc + key + '=' + val + '&';
             }, '?').slice(0,-1);
         }
-
-        console.log(url);
 
         var d = new Deferred();
 

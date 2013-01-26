@@ -4,6 +4,7 @@ define(function(require) {
     var Comment   = require('./Comment');
     var TimeEntry = require('./TimeEntry');
     var moment    = require('moment');
+    var _         = require('underscore');
 
     var Task = Model.extend();
 
@@ -21,7 +22,7 @@ define(function(require) {
             priority         : data.priority,
             dateCreated      : moment(data['created-on']),
             lastModified     : moment(data['last-changed-on']),
-            complete         : data.completed,
+            completed        : data.completed == 'true',
             estimatedMinutes : parseInt(data['estimated-minutes'], 10) || 0,
             dateDue          : data['due-date']
                 ? moment(data['due-date'], 'YYYYMMDD')
@@ -34,6 +35,29 @@ define(function(require) {
     Task.prototype.getTimeEntries = function()
     {
         return this.timeEntries || [];
+    };
+
+    Task.prototype.isOverdue = function()
+    {
+        return false;
+    };
+
+    // logged minutes vs actual, never negative
+    Task.prototype.minutesRemaining = function()
+    {
+        var delta = this.attributes.estimatedMinutes - this.totalLoggedMinutes();
+        return delta > 0 ? delta : 0;
+    };
+
+    // total number of logged minutes here
+    Task.prototype.totalLoggedMinutes = function()
+    {
+        if (!this.timeEntries)
+            return 0;
+
+        return _(this.timeEntries).reduce(function(acc, x) {
+            return acc + x.attributes.minutes;
+        }, 0);
     };
 
     Task.prototype.createComment = function(message)

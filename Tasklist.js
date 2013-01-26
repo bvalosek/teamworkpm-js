@@ -1,7 +1,8 @@
 define(function(require) {
 
-    var Model = require('./Model');
-    var Task  = require('./Task');
+    var Model     = require('./Model');
+    var Task      = require('./Task');
+    var TimeEntry = require('./TimeEntry');
 
     var Tasklist = Model.extend();
 
@@ -95,7 +96,7 @@ define(function(require) {
     };
 
     // Search over an entire collection of tasks lists for a specific task
-    Tasklist.Collection.prototype.findTaskById = function(taskId)
+    Tasklist.Collection.prototype.getTaskById = function(taskId)
     {
         var _task = null;
 
@@ -136,12 +137,29 @@ define(function(require) {
         return ret;
     };
 
+    // fetch + inject
+    Tasklist.Collection.prototype.fetchTimeEntries = function()
+    {
+        var d = new this._tpm.Deferred();
+
+        var entries = this.factory(TimeEntry.Collection);
+        entries.projectId = this.projectId;
+        entries.addOption('sortOrder', 'desc');
+
+        entries.fetch().done(function(entries) {
+            this.injectTimeEntries(entries);
+            d.resolve(this);
+        }.bind(this));
+
+        return d;
+    };
+
     // inject time information into each task from the collect of TimeEntry
     // objects
     Tasklist.Collection.prototype.injectTimeEntries = function(entries)
     {
         entries.each(function(entry) {
-            var task = this.findTaskById(entry.attributes.taskId);
+            var task = this.getTaskById(entry.attributes.taskId);
 
             if (task) {
                 task.timeEntries = task.timeEntries || [];

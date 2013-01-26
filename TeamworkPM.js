@@ -64,6 +64,9 @@ define(function(require) {
     // something that implements the promise interface
     TeamworkPM.prototype.doRequest = function(opts) { };
 
+    // should be set to an actual promise-like
+    TeamworkPM.prototype.Deferred = null;
+
     TeamworkPM.prototype.setConfig = function(config)
     {
         this.apiKey  = config.apiKey;
