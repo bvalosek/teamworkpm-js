@@ -24,7 +24,11 @@ define(function(require) {
             return this._tpm.doRequest({
                 endpoint: this.endpoint(),
                 method: 'post',
-                data: this.toServer()
+                data: this.toServer(),
+                parser: function(data) {
+                    this.parse(data);
+                    return this;
+                }.bind(this)
             });
         }
     };

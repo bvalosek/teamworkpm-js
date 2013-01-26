@@ -7,6 +7,11 @@ define(function(require) {
 
     TimeEntry.prototype.parse = function(data)
     {
+        if (data.timeLogId && data.STATUS == 'OK') {
+            this.id = data.timeLogId;
+            return this;
+        }
+
         this.id = data.id;
 
         this.attributes = {

@@ -59,7 +59,8 @@ define(function(require) {
     Tasklist.Collection.prototype.stats = function()
     {
         var total = 0, upcoming = 0, overdue = 0,
-            mins = 0, logged = 0, remaining = 0;
+            mins = 0, logged = 0, remaining = 0,
+            overdueMins = 0, overdueLogged = 0, overdueRemaining = 0;
 
         this.forEachTask(function(task) {
             total++;
@@ -68,6 +69,15 @@ define(function(require) {
             mins += task.attributes.estimatedMinutes;
             logged += task.totalLoggedMinutes();
             remaining += task.minutesRemaining();
+            overdueMins += task.isOverdue()
+                ? task.attributes.estimatedMinutes
+                : 0;
+            overdueLogged += task.isOverdue()
+                ? task.totalLoggedMinutes()
+                : 0;
+            overdueRemaining += task.isOverdue()
+                ? task.minutesRemaining()
+                : 0;
         });
 
         return {
@@ -76,7 +86,12 @@ define(function(require) {
             overdue: overdue,
             estimatedMinutes: mins,
             minutesLogged: logged,
-            minutesRemaining: remaining
+            minutesRemaining: remaining,
+            overdueTasks: {
+                estimatedMinutes: overdueMins,
+                minutesLogged: overdueLogged,
+                minutesRemaining: overdueRemaining
+            }
         };
     };
 

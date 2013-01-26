@@ -39,7 +39,7 @@ define(function(require) {
 
     Task.prototype.isOverdue = function()
     {
-        return false;
+        return moment().diff(this.attributes.dateDue, 'days', true) >= 1;
     };
 
     // logged minutes vs actual, never negative
