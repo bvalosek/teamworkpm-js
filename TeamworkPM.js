@@ -27,6 +27,11 @@ define(function(require) {
         return this._user;
     };
 
+    TeamworkPM.prototype.getProject = function(projectId)
+    {
+        return this.factory(Project, { id: projectId });
+    };
+
     TeamworkPM.prototype.getMyId = function()
     {
         return this._user ? this._user.id : null;
