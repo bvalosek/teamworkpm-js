@@ -15,8 +15,10 @@ define(function(require) {
 
         if (method == 'read') {
             return this._tpm.doRequest({
-                endpoint: this.endpoint(),
-                parser: function(data) {
+                endpoint : this.endpoint(),
+                extra    : this.extra || null,
+                options  : this._options,
+                parser   : function(data) {
                     data = this.parse(data);
 
                     if (!data) {
@@ -31,10 +33,18 @@ define(function(require) {
                     });
 
                     return this;
-                }.bind(this),
-                extra: this.extra || null
+                }.bind(this)
             });
         }
+    };
+
+    // addition URL options passed on request
+    Collection.prototype.addOption = function(key, val)
+    {
+        this._options = this._options || {};
+        this._options[key] = val;
+
+        return this;
     };
 
     // Create another Model or Collection with the same data context

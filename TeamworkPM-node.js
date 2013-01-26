@@ -3,6 +3,7 @@ define(function(require) {
     // node modules
     var request        = require('request');
     var Deferred       = require('JQDeferred');
+    var _              = require('underscore');
     
     var BaseTeamworkPM = require('./TeamworkPM');
 
@@ -17,9 +18,17 @@ define(function(require) {
         var method   = opts.method;
         var payload  = opts.data;
         var extra    = opts.extra;
+        var options  = opts.options;
 
         var url = this.getBaseUrl();
         url += endpoint + '.json' + (extra ? extra : '');
+
+        // addional params
+        if (options) {
+            url += _(options).reduce(function(acc, val, key) {
+                return acc + key + '=' + val + '&';
+            }, '?');
+        }
 
         var d = new Deferred();
 

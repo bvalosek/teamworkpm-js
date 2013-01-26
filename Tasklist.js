@@ -38,8 +38,6 @@ define(function(require) {
         return this;
     };
 
-    Tasklist.Collection.prototype.extra = '?STATUS=ALL';
-
     // Search over an entire collection of tasks lists for a specific task
     Tasklist.Collection.prototype.findTaskById = function(taskId)
     {

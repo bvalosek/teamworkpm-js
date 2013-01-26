@@ -12,10 +12,11 @@ define(function(require) {
         return 'projects/' + this.id;
     };
 
-    Project.prototype.getTasklists = function()
+    Project.prototype.getTasklists = function(opts)
     {
         var lists = this.factory(Tasklist.Collection);
         lists.projectId = this.id;
+        lists._options = opts;
 
         return lists.fetch();
     };
