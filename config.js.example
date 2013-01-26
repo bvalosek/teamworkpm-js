@@ -1,5 +1,0 @@
-define({
-    "apiKey": "yourApiKey",
-    "siteUrl": "http://yoursite.teamworkpm.net",
-    "projectId": 12345
-});

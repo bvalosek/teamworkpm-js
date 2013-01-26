@@ -1,4 +1,4 @@
-# punch
+TeamworkPM Javascript API
+=========================
 
-Git integration with TeamworkPM.
 

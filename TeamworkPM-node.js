@@ -1,7 +1,9 @@
 define(function(require) {
 
+    // node modules
     var request        = require('request');
     var Deferred       = require('JQDeferred');
+    
     var BaseTeamworkPM = require('./TeamworkPM');
 
     var TeamworkPM = BaseTeamworkPM.extend();
