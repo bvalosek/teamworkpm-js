@@ -10,6 +10,9 @@ define(function(require) {
 
     Task.prototype.parse = function(data)
     {
+        if (data['todo-item'])
+            data = data['todo-item'];
+
         this.id = data.id;
 
         this.attributes = {
@@ -28,8 +31,11 @@ define(function(require) {
                 ? moment(data['due-date'], 'YYYYMMDD')
                 : null
         };
+    };
 
-        return this;
+    Task.prototype.endpoint = function()
+    {
+        return 'todo_items/' + this.id;
     };
 
     Task.prototype.getTimeEntries = function()

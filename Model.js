@@ -14,7 +14,7 @@ define(function(require) {
             return this._tpm.doRequest({
                 endpoint: this.endpoint(),
                 parser: function(data) {
-                    this.attributes = this.parse(data);
+                    this.parse(data);
                     return this;
                 }.bind(this)
             });

@@ -8,13 +8,14 @@ define(function(require) {
     User.prototype.parse = function(data)
     {
         data = data.person;
+
         this.id = data.id;
 
-        return {
-            id: data.id,
-            username: data['user-name'],
-            email: data['email-address'],
-            lastLogin: moment(data['last-login'])
+        this.attributes = {
+            id        : data.id,
+            username  : data['user-name'],
+            email     : data['email-address'],
+            lastLogin : moment(data['last-login'])
         };
     };
 

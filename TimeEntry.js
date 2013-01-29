@@ -24,8 +24,6 @@ define(function(require) {
             minutes     : parseInt(data['minutes'], 10)
                             + 60*parseInt(data['hours'], 10)
         };
-
-        return this;
     };
 
     TimeEntry.Collection.prototype.lastEntryByUser = function(user)

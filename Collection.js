@@ -28,7 +28,8 @@ define(function(require) {
                     this.models = data.map(function(m) {
                         var model = new Model();
                         model._tpm = tpm;
-                        return model.parse(m);
+                        model.parse(m);
+                        return model;
                     });
 
                     return this;

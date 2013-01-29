@@ -120,13 +120,12 @@ define(function(require) {
 
             collection.models = tasks.map(function(td) {
                 var t = this.factory(Task);
-                return t.parse(td);
+                t.parse(td);
+                return t;
             }.bind(this));
 
             this.attributes.tasks = collection;
         }
-
-        return this;
     };
 
     Tasklist.prototype.getTasks = function()
